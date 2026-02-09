@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState(jsonMovies);
+  const [filterText, setFilterText] = useState("");
   const [comedyOnly, setComedyOnly] = useState(false);
 
   let displayMovies = movies;
@@ -13,10 +14,17 @@ export default function MoviesPage() {
     displayMovies = movies.filter(movie => movie.genres.includes('Comedy'))
   }
 
+  if (filterText) {
+    displayMovies = displayMovies.filter(movie => movie.name.toLowerCase().includes(filterText.toLowerCase()));
+  }
+
   return (
     <div className='movies-page'>
       <h1>Movies Page</h1>
-      <button onClick={() => setComedyOnly(!comedyOnly)}>{comedyOnly ? "Show All" : "Comedy Only"}</button>
+      <div className="filter-movies">
+        <input type="text" placeholder='Filter Movies...' value={filterText} onChange={e => setFilterText(e.target.value)} />
+        <button onClick={() => setComedyOnly(!comedyOnly)}>{comedyOnly ? "Show All" : "Comedy Only"}</button>
+      </div>
       {displayMovies.map(movie => <Movie key={movie.id} movie={movie} />)}
     </div>
   )

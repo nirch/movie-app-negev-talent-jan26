@@ -2,3 +2,14 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.movies-page .filter-movies {
+  display: flex;
+}
+
+
+.movies-page .filter-movies input {
+  flex-grow: 1;
+  /* flex: 1; */
+  padding: 5px;
+}
