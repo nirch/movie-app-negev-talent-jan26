@@ -3,8 +3,14 @@
 }
 
 .movie .movie-poster {
-  width: 200px;
+  width: 20%;
 }
+
+.movie .movie-info {
+  padding: 5px;
+  width: 80%;
+}
+
 
 .movie .movie-poster img {
   width: 100%;
