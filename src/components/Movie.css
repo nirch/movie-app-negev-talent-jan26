@@ -1,5 +1,10 @@
 .movie {
   display: flex;
+  cursor: pointer;
+}
+
+.movie.selected {
+  outline: 2px solid red;
 }
 
 .movie .movie-poster {

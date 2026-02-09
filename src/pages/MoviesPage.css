@@ -5,6 +5,7 @@
 
 .movies-page .filter-movies {
   display: flex;
+  margin-bottom: 8px;
 }
 
 
