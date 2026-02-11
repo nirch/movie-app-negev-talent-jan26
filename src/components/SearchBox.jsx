@@ -6,19 +6,21 @@ export default function SearchBox({ placeholder, searchText, onSearchChange, res
 
   return (
     <>
-      <TextInput
-        placeholder={placeholder}
-        value={searchText}
-        onChange={e => onSearchChange(e.target.value)} />
-      {results && results.length > 0 &&
-        <Paper withBorder shadow="sm" w="100%" className="results">
-          {results.map((result, index) =>
-            <Box key={index} p="sm" className="result-item">
-              {result}
-            </Box>
-          )}
-        </Paper>
-      }
+      <Box pos="relative">
+        <TextInput
+          placeholder={placeholder}
+          value={searchText}
+          onChange={e => onSearchChange(e.target.value)} />
+        {results && results.length > 0 &&
+          <Paper withBorder shadow="sm" w="100%" className="results" pos="absolute">
+            {results.map((result, index) =>
+              <Box key={index} p="sm" className="result-item">
+                {result}
+              </Box>
+            )}
+          </Paper>
+        }
+      </Box>
     </>
   )
 
