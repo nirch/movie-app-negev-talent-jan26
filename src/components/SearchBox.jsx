@@ -14,7 +14,7 @@ export default function SearchBox({ placeholder, searchText, onSearchChange, res
         {results && results.length > 0 &&
           <Paper withBorder shadow="sm" w="100%" className="results" pos="absolute">
             {results.map((result, index) =>
-              <Box key={index} p="sm" className="result-item">
+              <Box key={index} p="sm" className="result-item" onClick={() => onResultClicked(result)}>
                 {result}
               </Box>
             )}
