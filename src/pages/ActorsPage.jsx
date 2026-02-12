@@ -1,4 +1,4 @@
-import { Container } from "@mantine/core";
+import { Container, Grid } from "@mantine/core";
 import SearchBox from "../components/SearchBox";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -37,7 +37,11 @@ export default function ActorsPage() {
         onSearchChange={newSearchText => setSearchText(newSearchText)}
         results={searchResults.map(result => result.name)}
         onResultClicked={addActor} />
-      {actors.map(actor => <div key={actor.id}>{actor.name}</div>)}
+      <Grid >
+        {actors.map(actor =>
+          <Grid.Col key={actor.id} span={{ base: 12, sm: 6, md: 3 }}>{actor.name}</Grid.Col>
+        )}
+      </Grid>
     </Container>
   )
 }
