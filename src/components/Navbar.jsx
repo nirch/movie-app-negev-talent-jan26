@@ -3,7 +3,7 @@ import { useDisclosure } from "@mantine/hooks";
 import classes from "./Navbar.module.css";
 import { NavLink } from "react-router";
 
-export function Navbar() {
+export function Navbar({ onLogout }) {
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
@@ -28,14 +28,7 @@ export function Navbar() {
           </NavLink>
         </Group>
         <Group gap={5} visibleFrom="xs">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? classes.link + " " + classes.active : classes.link
-            }
-          >
-            Logout
-          </NavLink>
+          <a onClick={onLogout} className={classes.link}>Logout</a>
         </Group>
 
         <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Container } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 
-export default function MoviesPage() {
+export default function MoviesPage({ onLogout }) {
   const [movies, setMovies] = useState(jsonMovies);
   const [filterText, setFilterText] = useState("");
   const [comedyOnly, setComedyOnly] = useState(false);
@@ -31,7 +31,7 @@ export default function MoviesPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar onLogout={onLogout} />
       <Container size="md" className='movies-page'>
         <h1>Movies Page</h1>
         <div className="filter-movies">

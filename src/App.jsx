@@ -2,19 +2,34 @@ import { useState } from 'react'
 import './App.css'
 import MoviesPage from './pages/MoviesPage'
 import ActorsPage from './pages/ActorsPage'
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useNavigate } from 'react-router'
 import HomePage from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 
 function App() {
+  const [activeUser, setActiveUser] = useState(null);
+  const navigate = useNavigate();
+
+  function handleLogin(email, password) {
+    setTimeout(() => {
+      setActiveUser("john");
+      navigate("/movies");
+    }, 1000);
+  }
+
+  function handleLogout() {
+    setActiveUser(null);
+    navigate("/");
+  }
+
 
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/actors" element={<ActorsPage />} />
+        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/movies" element={<MoviesPage onLogout={handleLogout} />} />
+        <Route path="/actors" element={<ActorsPage onLogout={handleLogout} />} />
       </Routes>
     </>
   )
