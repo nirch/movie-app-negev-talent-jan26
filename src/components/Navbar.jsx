@@ -1,15 +1,7 @@
-import { useState } from "react";
 import { Burger, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./Navbar.module.css";
 import { NavLink } from "react-router";
-
-const links = [
-  { link: "/about", label: "Features" },
-  { link: "/pricing", label: "Pricing" },
-  { link: "/learn", label: "Learn" },
-  { link: "/community", label: "Community" },
-];
 
 export function Navbar() {
   const [opened, { toggle }] = useDisclosure(false);
