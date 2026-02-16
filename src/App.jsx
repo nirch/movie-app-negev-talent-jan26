@@ -5,6 +5,7 @@ import ActorsPage from './pages/ActorsPage'
 import { Route, Routes, useNavigate } from 'react-router'
 import HomePage from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 function App() {
   const [activeUser, setActiveUser] = useState(null);
@@ -12,7 +13,7 @@ function App() {
 
   function handleLogin(email, password) {
     setTimeout(() => {
-      setActiveUser("john");
+      setActiveUser({ id: 1111, username: "john", role: "admin" });
       navigate("/movies");
     }, 1000);
   }
@@ -28,8 +29,18 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-        <Route path="/movies" element={<MoviesPage onLogout={handleLogout} />} />
-        <Route path="/actors" element={<ActorsPage onLogout={handleLogout} />} />
+        <Route path="/movies"
+          element={
+            <ProtectedRoute activeUser={activeUser}>
+              <MoviesPage onLogout={handleLogout} />
+            </ProtectedRoute>
+          } />
+        <Route path="/actors"
+          element={
+            <ProtectedRoute activeUser={activeUser}>
+              <ActorsPage onLogout={handleLogout} />
+            </ProtectedRoute>
+          } />
       </Routes>
     </>
   )
