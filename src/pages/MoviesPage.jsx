@@ -3,6 +3,7 @@ import Movie from '../components/Movie'
 import './MoviesPage.css'
 import jsonMovies from '../data/movies.json'
 import { useState } from 'react';
+import { Container } from '@mantine/core';
 
 export default function MoviesPage() {
   const [movies, setMovies] = useState(jsonMovies);
@@ -28,7 +29,7 @@ export default function MoviesPage() {
   }
 
   return (
-    <div className='movies-page'>
+    <Container size="md" className='movies-page'>
       <h1>Movies Page</h1>
       <div className="filter-movies">
         <input type="text" placeholder='Filter Movies...' value={filterText} onChange={e => setFilterText(e.target.value)} />
@@ -39,6 +40,6 @@ export default function MoviesPage() {
           movie={movie}
           selected={selectedMovie === movie}
           onSelected={handleMovieSelection} />)}
-    </div>
+    </Container>
   )
 }

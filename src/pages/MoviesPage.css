@@ -1,8 +1,3 @@
-.movies-page {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .movies-page .filter-movies {
   display: flex;
   margin-bottom: 8px;
