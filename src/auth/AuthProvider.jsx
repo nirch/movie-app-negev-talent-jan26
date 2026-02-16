@@ -1,12 +1,17 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 
 const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
-  const [activeUser, setActiveUser] = useState(null);
+  const [activeUser, setActiveUser] = useState(localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("activeUser", JSON.stringify(activeUser));
+  }, [activeUser])
+
 
   function handleLogin(email, password) {
     setTimeout(() => {
