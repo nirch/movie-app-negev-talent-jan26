@@ -2,8 +2,10 @@ import { Burger, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./Navbar.module.css";
 import { NavLink } from "react-router";
+import { useAuth } from "../auth/AuthProvider";
 
-export function Navbar({ onLogout }) {
+export function Navbar() {
+  const { onLogout } = useAuth();
   const [opened, { toggle }] = useDisclosure(false);
 
   return (

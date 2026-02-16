@@ -13,8 +13,10 @@ import {
 import classes from "./LoginPage.module.css";
 import { useState } from "react";
 import { Link } from "react-router";
+import { useAuth } from "../auth/AuthProvider";
 
-export function LoginPage({ onLogin }) {
+export function LoginPage() {
+  const { onLogin } = useAuth();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [loading, setLoading] = useState(false)

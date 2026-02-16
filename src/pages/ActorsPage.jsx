@@ -5,7 +5,7 @@ import axios from "axios";
 import ActorCard from "../components/ActorCard";
 import { Navbar } from "../components/Navbar";
 
-export default function ActorsPage({ onLogout }) {
+export default function ActorsPage() {
   const [actors, setActors] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([])
@@ -32,7 +32,7 @@ export default function ActorsPage({ onLogout }) {
 
   return (
     <>
-      <Navbar onLogout={onLogout} />
+      <Navbar />
       <Container size="md">
         <h1>Actors Page</h1>
         <SearchBox
