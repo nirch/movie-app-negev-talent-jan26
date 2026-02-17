@@ -1,4 +1,5 @@
 import {
+  Alert,
   Anchor,
   Button,
   Checkbox,
@@ -15,11 +16,12 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../auth/AuthProvider";
 import { useForm } from "@mantine/form";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 export function LoginPage() {
   const form = useForm({
     initialValues: {
-      email: "",
+      email: "nirch@example.com",
       password: "",
     },
     validate: {
@@ -30,15 +32,21 @@ export function LoginPage() {
   });
   const { onLogin } = useAuth();
   const [loading, setLoading] = useState(false)
+  const [loginError, setLoginError] = useState(null)
 
-  function handleLogin() {
+  async function handleLogin() {
 
     const validation = form.validate();
     if (validation.hasErrors) {
       console.log(validation);
     } else {
       setLoading(true);
-      onLogin(form.values.email, form.values.pwd);
+      const error = await onLogin(form.values.email, form.values.password);
+      if (error) {
+        setLoading(false);
+        console.log(error);
+        setLoginError(error);
+      }
     }
   }
 
@@ -53,6 +61,19 @@ export function LoginPage() {
       </Text>
 
       <Paper withBorder shadow="sm" p={22} mt={30} radius="md">
+
+        {loginError &&
+          <Alert
+            icon={<IconAlertCircle size="1rem" />}
+            title="Login Failed"
+            color="red"
+            variant="light"
+          >
+            {loginError.message
+
+            }
+          </Alert>}
+
         <TextInput
           label="Email"
           required

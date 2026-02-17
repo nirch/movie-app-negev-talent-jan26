@@ -1,26 +1,39 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { supabase } from "../data/supabase";
 
 
 const AuthContext = createContext(null);
 
 export default function AuthProvider({ children }) {
-  const [activeUser, setActiveUser] = useState(localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null);
+  const [activeUser, setActiveUser] = useState();
+  //localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem("activeUser", JSON.stringify(activeUser));
-  }, [activeUser])
+  // useEffect(() => {
+  //   localStorage.setItem("activeUser", JSON.stringify(activeUser));
+  // }, [activeUser])
 
 
-  function handleLogin(email, password) {
-    setTimeout(() => {
-      setActiveUser({ id: 1111, username: "john", role: "admin" });
-      navigate("/movies");
-    }, 1000);
+  async function handleLogin(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      console.error(error);
+      return error;
+    }
+
+    console.log(data);
+    setActiveUser(data.user);
+    navigate("/movies");
   }
 
-  function handleLogout() {
+  async function handleLogout() {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error(error);
+      throw error;
+    }
+
     setActiveUser(null);
     navigate("/");
   }
