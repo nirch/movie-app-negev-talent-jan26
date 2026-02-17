@@ -9,27 +9,28 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import AuthProvider from './auth/AuthProvider'
 
 function App() {
-
+  const [isAuthReady, setAuthReady] = useState(false);
 
   return (
     <>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/movies"
-            element={
-              <ProtectedRoute >
-                <MoviesPage />
-              </ProtectedRoute>
-            } />
-          <Route path="/actors"
-            element={
-              <ProtectedRoute >
-                <ActorsPage />
-              </ProtectedRoute>
-            } />
-        </Routes>
+      <AuthProvider onAuthReady={() => setAuthReady(true)}>
+        {isAuthReady &&
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/movies"
+              element={
+                <ProtectedRoute >
+                  <MoviesPage />
+                </ProtectedRoute>
+              } />
+            <Route path="/actors"
+              element={
+                <ProtectedRoute >
+                  <ActorsPage />
+                </ProtectedRoute>
+              } />
+          </Routes>}
       </AuthProvider>
     </>
   )

@@ -5,14 +5,23 @@ import { supabase } from "../data/supabase";
 
 const AuthContext = createContext(null);
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ onAuthReady, children }) {
   const [activeUser, setActiveUser] = useState();
-  //localStorage.activeUser ? JSON.parse(localStorage.activeUser) : null);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   localStorage.setItem("activeUser", JSON.stringify(activeUser));
-  // }, [activeUser])
+  useEffect(() => {
+    fetchActiveUser();
+
+    async function fetchActiveUser() {
+      try {
+        const { data } = await supabase.auth.getUser();
+        setActiveUser(data.user);
+      } finally {
+        onAuthReady();
+      }
+    }
+  }, [])
+
 
 
   async function handleLogin(email, password) {
