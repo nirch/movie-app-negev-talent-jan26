@@ -1,16 +1,32 @@
 
 import Movie from '../components/Movie'
 import './MoviesPage.css'
-import jsonMovies from '../data/movies.json'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
+import { supabase } from '../data/supabase';
 
 export default function MoviesPage() {
-  const [movies, setMovies] = useState(jsonMovies);
+  const [movies, setMovies] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [comedyOnly, setComedyOnly] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+
+  useEffect(() => {
+    fetchMovies();
+
+    async function fetchMovies() {
+      let { data, error } = await supabase
+        .from('movies')
+        .select('*');
+
+      if (!error) {
+        console.log(data);
+        setMovies(data);
+      }
+    }
+  }, [])
 
   let displayMovies = movies;
   if (comedyOnly) {
