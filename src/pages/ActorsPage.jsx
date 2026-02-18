@@ -4,14 +4,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ActorCard from "../components/ActorCard";
 import { Navbar } from "../components/Navbar";
+import { useDebounce } from "../hooks/useDebounce";
 
 export default function ActorsPage() {
   const [actors, setActors] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState([]);
+  const searchTextDebounced = useDebounce(searchText, 500);
 
   useEffect(() => {
-
+    console.log('inside useEffect ActorsPage');
     async function fetchActors(searchText) {
       const searchURL = `https://api.themoviedb.org/3/search/person?api_key=53d2ee2137cf3228aefae083c8158855&query=${searchText}`;
       const response = await axios.get(searchURL);
@@ -23,7 +25,7 @@ export default function ActorsPage() {
     } else {
       setSearchResults([]);
     }
-  }, [searchText])
+  }, [searchTextDebounced])
 
   function addActor(index) {
     setActors([...actors, searchResults[index]]);
